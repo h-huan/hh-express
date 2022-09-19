@@ -1,0 +1,984 @@
+swagger: "2.0"
+info:
+  version: 0.1.0
+  title: 欢.blogs
+  description: 这是个欢·blogs博客的官方api,仅供借鉴，如果有什么好的意见请去官网对作者留言
+# host: 106.14.98.78
+basePath: /api
+tags:
+  - name: "管理员"
+  - name: "菜单"
+  - name: "标签"
+  - name: "分类"
+  - name: "博客"
+  - name: "图片"
+  - name: "评论"
+  # - name: "友情连接"
+  - name: "留言"
+  - name: "流量"
+schemes:
+  - http
+paths:
+  # 管理员
+  /login:
+    post:
+      tags:
+        - "管理员"
+      summary: 登录
+      description: ""
+      # 参数
+      parameters:
+        - name: body
+          in: body
+          description: ""
+          schema:
+            properties:
+              uuid:
+                type: string
+              passWord:
+                type: string
+      # 参数的格式
+      consumes:
+        - "application/json"
+      # 响应的格式
+      produces:
+        - "application/json"
+      # 响应
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /admin/add:
+    post:
+      tags:
+        - "管理员"
+      summary: 添加管理员
+      description: ""
+      parameters:
+        - name: body
+          in: body
+          description: ""
+          schema:
+            properties:
+              uuid:
+                type: string
+              passWord:
+                type: string
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /admin/upd/{uuid}:
+    put:
+      tags:
+        - "管理员"
+      summary: "根据uuid修改管理员信息"
+      description: ""
+      parameters:
+        - name: "uuid"
+          in: path
+          type: "string"
+          required: true
+          description: ""
+        - name: "body"
+          in: body
+          schema:
+            properties:
+              userName:
+                type: string
+                description: 管理员名
+              uuid:
+                type: string
+                description: uuid
+              gender:
+                type: string
+                description: 性别
+              email:
+                type: string
+                description: 邮箱
+              birthday:
+                type: string
+                description: 出生年月日
+              mobile:
+                type: string
+                description: 手机
+              summary:
+                type: string
+                description: 个性签名
+              github:
+                type: string
+                description: github
+              gitee:
+                type: string
+                description: gitee
+              gitlab:
+                type: string
+                description: gitlab
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /admin/upd/pass/{uuid}:
+    put:
+      tags:
+        - "管理员"
+      summary: "根据UUid修改管理员密码"
+      description: ""
+      parameters:
+        - name: "uuid"
+          in: path
+          description: ""
+          required: true
+          type: "string"
+        - name: "body"
+          in: body
+          description: ""
+          schema:
+            properties:
+              oldPassWord:
+                type: string
+                description: "原密码"
+              passWord:
+                type: string
+                description: "新密码"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /admin/set/{uuid}:
+    get:
+      tags:
+        - "管理员"
+      summary: 根据uuid查询管理员信息
+      description: ""
+      parameters:
+        - name: uuid
+          in: path
+          type: string
+          required: true
+          description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /admin/del/{id}:
+    delete:
+      tags:
+        - "管理员"
+      summary: "根据id删除管理员信息"
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  # 菜单
+  /menu/add:
+    post:
+      tags:
+        - "菜单"
+      summary: "添加菜单"
+      description: ""
+      parameters:
+        - name: body
+          in: body
+          description: ""
+          schema:
+            properties:
+              menuName:
+                type: string
+                description: "菜单"
+              menuFid:
+                type: integer
+                description: "父级id"
+              useId:
+                type: integer
+                description: "操作员id"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /ment/getfm:
+    get:
+      tags:
+        - "菜单"
+      summary: "获取父节点的菜单"
+      description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /ment/All:
+    get:
+      tags:
+        - "菜单"
+      summary: "获取后台所有的菜单"
+      description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  # 标签
+  /tabs/add:
+    post:
+      tags:
+        - "标签"
+      summary: "添加标签"
+      description: ""
+      parameters:
+        - name: body
+          in: body
+          description: ""
+          schema:
+            properties:
+              tanName:
+                type: string
+                description: ""
+              content:
+                type: string
+                description: ""
+              state:
+                type: string
+                description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /tabs/list:
+    get:
+      tags:
+        - "标签"
+      summary: 获取标签标签
+      description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /tabs/list/count:
+    get:
+      tags:
+        - "标签"
+      summary: 获取标签和对应的博客数
+      description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /tabs/del/{id}:
+    delete:
+      tags:
+        - "标签"
+      summary: 根据标签id来删除分类
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /tabs/name/upd/{id}:
+    put:
+      tags:
+        - "标签"
+      summary: 根据分类id修改分类名称
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: ""
+        - name: body
+          in: body
+          description: ""
+          schema:
+            properties:
+              tanName:
+                type: string
+                description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /tabs/state/upd/{id}:
+    put:
+      tags:
+        - "标签"
+      summary: "根据分类id修改分类状态"
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: ""
+        - name: body
+          in: body
+          description: ""
+          schema:
+            properties:
+              state:
+                type: string
+                description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /tabs/cli/count/{id}:
+    get:
+      tags:
+        - "标签"
+      summary: 修改分类的点击数
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /tabs/count:
+    get:
+      tags:
+        - "标签"
+      summary: 查询标签的总数量
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /tabs/get/blog/{id}:
+    get:
+      tags:
+        - "标签"
+      summary: 根据id获取对应的博客
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  # 分类
+  /sort/add:
+    post:
+      tags:
+        - "分类"
+      summary: "添加分类"
+      parameters:
+        - name: body
+          in: body
+          schema:
+            properties:
+              sortName:
+                type: string
+                description: "分类内容"
+              content:
+                type: string
+                description: "分类简介"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /sort/list:
+    get:
+      tags:
+        - "分类"
+      summary: "获取分类列表"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /sort/list/count:
+    get:
+      tags:
+        - "分类"
+      summary: "获取分类列表和对应的博客数"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /sort/del/{id}:
+    delete:
+      tags:
+        - "分类"
+      summary: "根据分类id来删除分类"
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /sort/name/upd/{id}:
+    put:
+      tags:
+        - "分类"
+      summary: "根据分类id修改分类名称"
+      parameters: 
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: ""
+        - name: body
+          in: body
+          description: ""
+          schema:
+            properties:
+              sortName:
+                type: string
+                description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /sort/state/upd/{id}:
+    put:
+      tags:
+        - "分类"
+      summary: "根据分类id修改分类状态"
+      parameters: 
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: ""
+        - name: body
+          in: body
+          description: ""
+          schema:
+            properties:
+              state:
+                type: string
+                description: ""
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /sort/cli/count/{id}:
+    get:
+      tags:
+        - "分类"
+      summary: 添加分类的点击数
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /sort/count:
+    get:
+      tags:
+        - "分类"
+      summary: 获取分类的总数量
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /sort/get/blog/{id}:
+    get:
+      tags:
+        - "分类"
+      summary: 根据id获取对应的博客
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  #  博客
+  /blog/add: 
+    post:
+      tags:
+        - "博客"
+      summary: "添加博客"
+      parameters:
+        - name: body
+          in: body
+          schema:
+            properties:
+              blogSortId:
+                type: integer
+                description: "分类id"
+              tabId:
+                type: integer
+                description: "标签id"
+              title:
+                type: string
+                description: "博客标题"
+              summary:
+                type: string
+                description: "博客简介"
+              content:
+                type: string
+                description: "博客内容"
+              isOriginal:
+                type: string
+                description: "是否原创"
+              topBlogs:
+                type: integer
+                description: "是否置顶"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /blog/get/{id}:
+    get:
+      tags:
+        - "博客"
+      summary: "根据id来查询博客"
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /blog/list:
+    get:
+      tags:
+        - "博客"
+      summary: "获取博客列表"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /blog/del/{id}:
+    delete:
+      tags:
+        - "博客"
+      summary: "根据id来删除博客"
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /blog/upd/{id}:
+    put:
+      tags:
+        - "博客"
+      summary: "根据id修改博客"
+      parameters: 
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: ""
+        - name: body
+          in: body
+          description: ""
+          schema:
+            properties:
+              blogSortId:
+                type: integer
+                description: "分类id"
+              tabId:
+                type: integer
+                description: "标签id"
+              title:
+                type: string
+                description: "博客标题"
+              summary:
+                type: string
+                description: "博客简介"
+              content:
+                type: string
+                description: "博客内容"
+              isOriginal:
+                type: string
+                description: "是否原创"
+              topBlogs:
+                type: string
+                description: "是否置顶"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /blog/cli/count/{id}:
+    get:
+      tags:
+        - "博客"
+      summary: 根据id添加点击数
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /blog/coll/count/{id}:
+    get:
+      tags:
+        - "博客"
+      summary: 根据id添加收藏数
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /blog/count:
+    get:
+      tags:
+        - "博客"
+      summary: 获取总的博客数
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /blog//like/{cont}:
+    get:
+      tags:
+        - "博客"
+      summary: 根据标题和简介来模糊查询
+      parameters:
+        - name: cont
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  # 图片
+  /pictureBlog/add: 
+    post:
+      tags:
+        - "图片"
+      summary: "添加博客的图片链接··"
+      parameters:
+        - name: body
+          in: body
+          schema:
+            properties:
+              urls:
+                type: string
+                description: "图片链接列表"
+              blogId:
+                type: integer
+                description: "博客id"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /pictureBlog/upd/{blogId}: 
+    put:
+      tags:
+        - "图片"
+      summary: "根据博客id,修改列表图片链接"
+      parameters:
+        - name: blogId
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          schema:
+            properties:
+              urls:
+                type: string
+                description: "图片链接列表"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /pictureBlog/del/{blogId}:
+    delete:
+      tags:
+        - "图片"
+      summary: "删除博客id来图片链接"
+      parameters:
+        - name: blogId
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /pictureBlog/get/{blogId}:
+    get:
+      tags:
+        - "图片"
+      summary: "根据博客的id来查询链接"
+      parameters:
+        - name: blogblogIdId
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  # 评论
+  /comment/add: 
+    post: 
+      tags:
+        - "评论"
+      summary: "添加评论"
+      parameters:
+        - name: body
+          in: body
+          schema:
+            properties:
+              user_name:
+                type: string
+                description: "标签内容"
+              email:
+                type: string
+                description: "邮箱"
+              content:
+                type: string
+                description: "评论"
+              blog_id:
+                type: integer
+                description: "博客id"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /comment/del/{id}:
+    delete:
+      tags:
+        - "评论"
+      summary: "删除评论"
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /comment/upd/{id}:
+    put:
+      tags:
+        - "评论"
+      summary: "对评论进行回复"
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          schema:
+            properties: 
+              reply: 
+                type: string
+                description: "回复内容"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /comment/list/all: 
+    get:
+      tags:
+        - "评论"
+      summary: "查询所有评论"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /comment/get/{blog_id}: 
+    get:
+      tags:
+        - "评论"
+      summary: "根据博客id获取对应的所有评论"
+      parameters:
+        - name: blog_id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  # 留言
+  /leave/add:   
+    post: 
+      tags:
+        - "留言"
+      summary: "添加留言"
+      parameters:
+        - name: body
+          in: body
+          schema:
+            properties:
+              name:
+                type: string
+                description: "标签内容"
+              email:
+                type: string
+                description: "邮箱"
+              cent:
+                type: string
+                description: "留言"
+             
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /leave/list: 
+    get:
+      tags:
+        - "留言"
+      summary: "查询所有的留言"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"    
+  /leave/upd/{id}: 
+    put:
+      tags:
+        - "留言"
+      summary: "对留言进行回复"
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          schema:
+            properties: 
+              reply: 
+                type: string
+                description: "回复内容"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"    
+  /leave/del/{id}: 
+    delete:
+      tags:
+        - "留言"
+      summary: "根据id删除留言"
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  # 流量
+  /visit/add: 
+    get:
+      tags:
+        - "流量"
+      summary: "添加访问量"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /visit/count: 
+    get:
+      tags:
+        - "流量"
+      summary: "查询总的访问量"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+  /visit/count/per: 
+    get:
+      tags:
+        - "流量"
+      summary: "查询访问人数"
+      responses:
+        200:
+          description: "响应成功"
+        x-*-1:
+          description: "失败"
+
+
+
